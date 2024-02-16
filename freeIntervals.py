@@ -1,5 +1,4 @@
 from datetime import datetime
-import pytz
 
 # Sample response from FreeBusy API
 # freebusy_response = {

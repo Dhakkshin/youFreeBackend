@@ -19,7 +19,7 @@ class DayInfo(BaseModel):
 
 app = FastAPI()
 
-@app.get('/')
+@app.get('/specific-date')
 async def spcefic(time: TimeBounds):
 
     start_str = time.start.strftime("%Y-%m-%dT%H:%M:%S")
@@ -31,5 +31,4 @@ async def spcefic(time: TimeBounds):
 @app.get('/full-day')
 async def full(day: DayInfo):
     response = freebusy.collectBusyTimes(day.calendar_ids)
-    freeIntervals.find_free_slots(response, day.date)
-    return True
+    return freeIntervals.find_free_slots(response, day.date)

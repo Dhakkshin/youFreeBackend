@@ -1,1 +1,8 @@
 fastapi[all]
+requests
+pydantic
+datetime
+typing
+json
+os
+dotenv

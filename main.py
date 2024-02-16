@@ -17,13 +17,9 @@ class DayInfo(BaseModel):
     timezone: str
     calendar_ids: List[str]
 
-# class FunctionResult(BaseModel):
-#     isFree: bool  
-#     unavailable: list
-
 app = FastAPI()
 
-@app.get('/specific-time')
+@app.get('/')
 async def spcefic(time: TimeBounds):
 
     start_str = time.start.strftime("%Y-%m-%dT%H:%M:%S")

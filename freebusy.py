@@ -2,38 +2,57 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
 
-def collectBusyTimes(cal_ids):
-
-    url = "https://www.googleapis.com/calendar/v3/freeBusy"
-
-    # Update these with your OAuth 2.0 credentials
+def get_access_token():
     load_dotenv() 
     client_id = os.getenv("CLIENT_ID")
     client_secret = os.getenv("CLIENT_SECRET")
+    scopes = ["https://www.googleapis.com/auth/calendar.readonly"]
 
-    # Update these with your obtained access token
-    access_token = os.getenv("ACCESS_TOKEN")
+    flow = InstalledAppFlow.from_client_secrets_file(
+        "credentials.json",
+        scopes=scopes
+    )
+
+    # Print the authorization URL
+    auth_url, _ = flow.authorization_url(prompt='consent')
+    print("Authorization URL:", auth_url)
+
+    # Configure the flow to run in headless mode
+    flow.run_local_server()
+
+    # Get the credentials object
+    creds = flow.credentials
+
+    # Print the received authorization response
+    print("Received authorization response:", creds)
+    
+    # Save the credentials to a file
+    with open("token.json", "w") as token_file:
+        token_file.write(creds.to_json())
+
+    return creds.token
+
+
+def collectBusyTimes(start, end, cal_ids):
+    url = "https://www.googleapis.com/calendar/v3/freeBusy"
+    access_token = get_access_token()
 
     headers = {
         "Authorization": f"Bearer {access_token}",
         "Content-Type": "application/json"
     }
 
-    # cal_ids = ["7d3e6bfcdf8a27acf7fbc7301b8b32615f183e57f250740e4699fbae6d614e3d@group.calendar.google.com", "4c9d380b330580be36ca243cbf5b90b14664fbe0208dcd707c967fa7d7ef0aa7@group.calendar.google.com"]
     data = {
-        "timeMin": "2022-01-01T00:00:00Z",
-        "timeMax": "2022-01-01T23:59:59Z",
+        "timeMin": start, #"2022-01-01T00:00:00Z",
+        "timeMax": end, #"2022-01-01T23:59:59Z",
         "items": [{"id": id} for id in cal_ids]
     }
 
     response = requests.post(url, headers=headers, data=json.dumps(data))
+    print('\n\n', response, '\n\n')
     return response
 
 
-# if response.status_code == 200:
-#     free_busy_info = response.json()
-#     print(free_busy_info)
-# else:
-#     print(f"Request failed with status code {response.status_code}")
-#     print(response.text)

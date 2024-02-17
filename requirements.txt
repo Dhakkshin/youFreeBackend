@@ -3,6 +3,7 @@ requests
 pydantic
 datetime
 typing
-json
 os
 dotenv
+google-auth-oauthlib
+google-auth

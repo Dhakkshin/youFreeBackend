@@ -10,7 +10,7 @@ def find_free_slots(response, date):
     # Initialize list to store free time slots
     free_slots = []
     response_dict = response.json()
-    
+    print(response_dict)
     # Get busy intervals for each calendar
     for calendar, busy_info in response_dict['calendars'].items():
         busy_slots = busy_info['busy']

@@ -1,0 +1,19 @@
+{
+    "start": "2024-02-17T04:30:00Z",
+    "end": "2024-02-17T06:00:00Z",
+    "timezone": "UTC",
+    "calendar_ids": [
+        "7d3e6bfcdf8a27acf7fbc7301b8b32615f183e57f250740e4699fbae6d614e3d@group.calendar.google.com", 
+        "4c9d380b330580be36ca243cbf5b90b14664fbe0208dcd707c967fa7d7ef0aa7@group.calendar.google.com"]
+}
+
+
+
+
+{
+    "date": "2024-02-17T23:00:00",
+    "timezone": "UTC",
+    "calendar_ids": [
+        "7d3e6bfcdf8a27acf7fbc7301b8b32615f183e57f250740e4699fbae6d614e3d@group.calendar.google.com", 
+        "4c9d380b330580be36ca243cbf5b90b14664fbe0208dcd707c967fa7d7ef0aa7@group.calendar.google.com"]
+}

@@ -20,7 +20,7 @@ class DayInfo(BaseModel):
 
 app = FastAPI()
 
-@app.get('/specific-date')
+@app.post('/specific-date')
 async def spcefic(time: TimeBounds):
 
     start_str = time.start.strftime("%Y-%m-%dT%H:%M:%S")
@@ -39,10 +39,10 @@ async def spcefic(time: TimeBounds):
     max_str = max_datetime.strftime("%Y-%m-%dT%H:%M:%S")
 
     response = freebusy.collectBusyTimes(min_str, max_str, time.calendar_ids)
-    
+
     return freeTime.is_everyone_free(response, start_str, end_str)
 
-@app.get('/full-day')
+@app.post('/full-day')
 async def full(day: DayInfo):
     print(day)
     date = day.date

@@ -46,13 +46,14 @@ def collectBusyTimes(start, end, cal_ids):
     }
 
     data = {
-        "timeMin": start, #"2022-01-01T00:00:00Z",
-        "timeMax": end, #"2022-01-01T23:59:59Z",
+        "timeMin": start+'Z', #"2022-01-01T00:00:00Z",
+        "timeMax": end+'Z', #"2022-01-01T23:59:59Z",
         "items": [{"id": id} for id in cal_ids]
     }
-
+    # print(start, end, sep='\n\n')
+    # print(headers, json.dumps(data), sep='\n\n')
     response = requests.post(url, headers=headers, data=json.dumps(data))
-    print('\n\n', response, '\n\n')
+    # print('\n\n', response, '\n\n')
     return response
 
 
